@@ -1,1 +1,1 @@
-[{"id": 1, "text": "Yes this worked", "completed": false}, {"id": 2, "text": "Test", "completed": false}, {"id": 3, "text": "Build a React App", "completed": false}]
+[{"name": "paulie", "expense": "toilet", "price": 1234},{"name": "paulie", "expense": "toilet", "price": 1234}]

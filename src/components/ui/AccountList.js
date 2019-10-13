@@ -13,21 +13,16 @@ export default class AccountList extends React.Component {
         this.getAccounts()
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-    }
-
     getAccounts() {
         fetch('http://localhost:5000/accounts', {mode: 'cors'})
             .then(res => res.json())
             .then((data) => {
-                console.log('asdf', data)
+                this.setState({items: data})
             })
     }
 
 
     render() {
-        this.getAccounts()
         const sum = this.state.items.reduce((item, sum) => {return {price: sum.price+item.price}}).price
         return (
             <div className="container">
@@ -49,7 +44,12 @@ export default class AccountList extends React.Component {
     }
 
     addAccount(item) {
-        this.setState({items: [item, ...this.state.items]}, ()=>console.log(this.state))
+        this.setState({items: [item, ...this.state.items]}, ()=>{
+            fetch('http://localhost:5000/accounts', {
+                method: 'POST',
+                body: JSON.stringify(item)
+            })
+        })
     }
 }
 
