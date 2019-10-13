@@ -7,13 +7,13 @@ app = Flask(__name__, static_url_path = "")
 data = {}
 
 with open('../data/rules.json', 'r') as f:
-    rules_list = f.readlines()
+    rules_list = json.load(f)
 
 with open('../data/voting.json', 'r') as f:
-    voting_list = f.readlines()
+    voting_list = json.load(f)
 
 with open('../data/accounts.json', 'r') as f:
-    accounts_list = f.readlines()
+    accounts_list = json.load(f)
 
 def save():
     with open('../data/rules.json', 'w+') as f:
@@ -33,17 +33,21 @@ def get_rules():
 # Post new rule to rules.json, remove from voting.
 @app.route('/rules', methods=["POST"])
 def post_rules():
+    print(rules_list)
     rules_list.append({"text": request.json["text"]})
     
     for index, vote in enumerate(voting_list):
         print(voting_list, vote)
+        print(rules_list)
+        print(accounts_list)
         if vote["text"] == request.json["text"]:
             try:
                 del voting_list[index]
             except:
                 break
     
-    save()  
+    save()
+    return "Done"
 
 # @app.route('/rules', methods=["PUT"])
 # def put_rules():
@@ -83,6 +87,8 @@ def update_voting():
             break
 
     save()
+
+    return "Done"
     # voting_dict["id"] = request.json["id"]
     # voting_dict["vote_type"] = request.json["vote_type"]
     # voting_dict["vote_decision_y"] = request.json["vote_decision_y"]
@@ -99,6 +105,7 @@ def post_accounts():
                         "price": request.json["price"]})
     
     save()
+    return "Done"
 # @app.route('/accounts', methods=["PUT"])
 # def put_accounts():
 #     accounts_dict["id"] = request.json["id"]
