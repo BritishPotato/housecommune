@@ -124,3 +124,9 @@ footer .buttons {
     border: 1px solid rgba(229, 229, 229, 0.5);
     color: #888;
 }
+
+.voting-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
