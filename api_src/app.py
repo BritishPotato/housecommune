@@ -1,8 +1,10 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, request, make_response
 import json
+from flask_cors import CORS
 
 app = Flask(__name__, static_url_path = "")
+cors = CORS(app)
 
 data = {}
 
@@ -92,7 +94,12 @@ def update_voting():
 
 @app.route('/accounts', methods=["GET"])
 def get_accounts():
-    return json.dumps({"data":accounts_list})
+    response = app.response_class(
+        response=json.dumps(accounts_list),
+        status=200,
+        mimetype='application/json'
+    )
+    return  response
 
 @app.route('/accounts', methods=["POST"])
 def post_accounts():

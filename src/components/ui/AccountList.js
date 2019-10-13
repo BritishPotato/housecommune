@@ -9,10 +9,25 @@ export default class AccountList extends React.Component {
         this.state = {
             items: [{name: 'paulie', expense: 'toilet', price: 1234}, {name: 'paulie', expense: 'toilet', price: 1234}, {name: 'paulie', expense: 'toilet', price: 1234}]
         }
+
+        this.getAccounts()
     }
 
-    render() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
 
+    }
+
+    getAccounts() {
+        fetch('http://localhost:5000/accounts', {mode: 'cors'})
+            .then(res => res.json())
+            .then((data) => {
+                console.log('asdf', data)
+            })
+    }
+
+
+    render() {
+        this.getAccounts()
         const sum = this.state.items.reduce((item, sum) => {return {price: sum.price+item.price}}).price
         return (
             <div className="container">

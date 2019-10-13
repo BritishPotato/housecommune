@@ -4,7 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import StaticList from './StaticList';
 import {applyFilter, search} from '../../services/filter';
-import RulesJsonData from "../../data/Rules.json";
+import RulesJsonData from "../../../data/rules.json";
 
 export default function TodoList(props) {
     const {list, filter, mode, query} = props.data;
