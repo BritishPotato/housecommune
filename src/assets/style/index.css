@@ -6,8 +6,8 @@ body {
 .todolist {
     background-color: #FFF;
     padding: 20px 20px 10px 20px;
-    width: 400px;
-    margin: 30px auto;
+    width: 90%;
+    margin: 30px;
     border: 1px solid #ddd;
     border-radius: 2px;
     position: relative;
@@ -129,4 +129,19 @@ footer .buttons {
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+header>.account-add {
+    width: 80%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+header>.button {
+    margin-left: 1%;
+    width: 19%;
+}
+
+.account-add>input {
+    width: 32%;
 }
