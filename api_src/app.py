@@ -28,18 +28,14 @@ def save():
 
 @app.route('/rules', methods=["GET"])
 def get_rules():
-    return rules_list
+    return json.dumps({"data":rules_list})
 
 # Post new rule to rules.json, remove from voting.
 @app.route('/rules', methods=["POST"])
 def post_rules():
-    print(rules_list)
     rules_list.append({"text": request.json["text"]})
     
     for index, vote in enumerate(voting_list):
-        print(voting_list, vote)
-        print(rules_list)
-        print(accounts_list)
         if vote["text"] == request.json["text"]:
             try:
                 del voting_list[index]
@@ -66,7 +62,7 @@ def post_rules():
 
 @app.route('/voting', methods=["GET"])
 def get_voting():
-    return voting_list
+    return json.dumps({"data":voting_list})
 
 @app.route('/voting', methods=["POST"])
 def post_voting():
@@ -96,7 +92,7 @@ def update_voting():
 
 @app.route('/accounts', methods=["GET"])
 def get_accounts():
-    return accounts_list
+    return json.dumps({"data":accounts_list})
 
 @app.route('/accounts', methods=["POST"])
 def post_accounts():
