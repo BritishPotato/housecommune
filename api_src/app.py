@@ -1,0 +1,109 @@
+#!flask/bin/python
+from flask import Flask, jsonify, abort, request, make_response
+import json
+
+app = Flask(__name__, static_url_path = "")
+
+data = {}
+
+with open('../data/rules.json', 'r') as f:
+    rules_list = f.readlines()
+
+with open('../data/voting.json', 'r') as f:
+    voting_list = f.readlines()
+
+with open('../data/accounts.json', 'r') as f:
+    accounts_list = f.readlines()
+
+def save():
+    with open('../data/rules.json', 'w+') as f:
+        json.dump(rules_list, f)
+
+    with open('../data/voting.json', 'w+') as f:
+        json.dump(voting_list, f)
+
+    with open('../data/accounts.json', 'w+') as f:
+        json.dump(accounts_list, f)
+
+
+@app.route('/rules', methods=["GET"])
+def get_rules():
+    return rules_list
+
+# Post new rule to rules.json, remove from voting.
+@app.route('/rules', methods=["POST"])
+def post_rules():
+    rules_list.append({"text": request.json["text"]})
+    
+    for index, vote in enumerate(voting_list):
+        print(voting_list, vote)
+        if vote["text"] == request.json["text"]:
+            try:
+                del voting_list[index]
+            except:
+                break
+    
+    save()  
+
+# @app.route('/rules', methods=["PUT"])
+# def put_rules():
+#     for rule in rules_list:
+#         if rule["text"] == request.json["text"]:
+#             rule["id"] = request.json["id"]
+        
+        
+#         for index, vote in enumerate(voting_list):
+#             if vote["text"] == request.json["text"]:
+#                 del voting_list[index]
+#     rules_dict["id"] = request.json["id"]
+#     rules_dict["text"] = request.json["text"]
+
+#     save()
+
+@app.route('/voting', methods=["GET"])
+def get_voting():
+    return voting_list
+
+@app.route('/voting', methods=["POST"])
+def post_voting():
+    voting_list.append({"text": request.json["text"],
+                        "vote_type": request.json["vote_type"],
+                        "vote_yes": 0,
+                        "vote_no": 0})
+
+    save()
+    return "Done"
+
+@app.route('/voting', methods=["PUT"])
+def update_voting():
+    for vote in voting_list:
+        if vote["text"] == request.json["text"]:
+            vote["vote_yes"] += request.json["vote_yes"]
+            vote["vote_no"] += request.json["vote_no"]
+            break
+
+    save()
+    # voting_dict["id"] = request.json["id"]
+    # voting_dict["vote_type"] = request.json["vote_type"]
+    # voting_dict["vote_decision_y"] = request.json["vote_decision_y"]
+    # voting_dict["vote_decision_n"] = request.json["vote_decision_n"]
+
+@app.route('/accounts', methods=["GET"])
+def get_accounts():
+    return accounts_list
+
+@app.route('/accounts', methods=["POST"])
+def post_accounts():
+    voting_list.append({"name": request.json["name"],
+                        "item": request.json["item"],
+                        "price": request.json["price"]})
+    
+    save()
+# @app.route('/accounts', methods=["PUT"])
+# def put_accounts():
+#     accounts_dict["id"] = request.json["id"]
+#     accounts_dict["item"] = request.json["item"]
+#     accounts_dict["price"] = request.json["price"]
+
+if __name__ == '__main__':
+    app.run(port=5000, threaded=True, host=('0.0.0.0'))
