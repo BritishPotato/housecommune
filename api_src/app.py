@@ -30,7 +30,12 @@ def save():
 
 @app.route('/rules', methods=["GET"])
 def get_rules():
-    return json.dumps({"data":rules_list})
+    response = app.response_class(
+        response=json.dumps(rules_list),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 # Post new rule to rules.json, remove from voting.
 @app.route('/rules', methods=["POST"])
@@ -64,7 +69,12 @@ def post_rules():
 
 @app.route('/voting', methods=["GET"])
 def get_voting():
-    return json.dumps({"data":voting_list})
+    response = app.response_class(
+        response=json.dumps(voting_list),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 @app.route('/voting', methods=["POST"])
 def post_voting():
