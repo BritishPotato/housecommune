@@ -2,8 +2,9 @@ import React from 'react';
 import Info from './Info';
 import Header from './Header';
 import Footer from './Footer';
-import FilteredList from './FilteredList';
+import StaticList from './StaticList';
 import {applyFilter, search} from '../../services/filter';
+import RulesJsonData from "../../data/Rules.json";
 
 export default function TodoList(props) {
     const {list, filter, mode, query} = props.data;
@@ -15,10 +16,10 @@ export default function TodoList(props) {
         <div className="container">
             <div className="col">
                 <div className="todolist">
-                    <Header {...{addNew, mode, query, setSearchQuery}}/>
-                    <FilteredList {...{items, changeStatus}}/>
-                    <Footer {...{count, filter, changeFilter, mode, changeMode}}/>
-                    <Info {...{mode}}/>
+                    <h1>Rules</h1>
+                    <StaticList {...{items, changeStatus}}/>
+                    {/* {JSON.stringify(items, null, 2) } */}
+                    {/* <div><pre>{JSON.stringify(RulesJsonData, null, 2) }</pre></div> */}
                 </div>
             </div>
         </div>
