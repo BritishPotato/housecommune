@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
-import TodoList from '../ui/TodoList';
+import RulesList from '../ui/RulesList';
 import StateProvider from './StateProvider';
-import KeyStrokeHandler from './KeyStrokeHandler';
 import VotingList from "../ui/VotingList";
 
 class App extends Component {
     render() {
         return (
-            <StateProvider>
-                <VotingList/>
-            </StateProvider>
+            <section>
+                <StateProvider>
+                    <RulesList/>
+                </StateProvider>
+                <StateProvider>
+                    <VotingList/>
+                </StateProvider>
+            </section>
         );
     }
 }
