@@ -113,11 +113,10 @@ def get_accounts():
 
 @app.route('/accounts', methods=["POST"])
 def post_accounts():
-    print(request.keys())
     voting_list.append({"name": request.json["name"],
                         "expense": request.json["expense"],
                         "price": request.json["price"]})
-    
+    print(voting_list)
     save()
     return "Done"
 # @app.route('/accounts', methods=["PUT"])

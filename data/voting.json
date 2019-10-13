@@ -1,1 +1,1 @@
-[{"id": 1, "text": "Yes this worked", "completed": false}, {"id": 2, "text": "Test", "completed": false}, {"id": 3, "text": "Build a React App", "completed": false}]
+[{"id": 1, "text": "Yes this worked", "completed": false}, {"id": 2, "text": "Test", "completed": false}, {"id": 3, "text": "Build a React App", "completed": false}, {"name": "asdf", "expense": "asdf", "price": "1234"}, {"name": "asdf", "expense": "asdf", "price": "1234"}]

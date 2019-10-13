@@ -47,6 +47,10 @@ export default class AccountList extends React.Component {
         this.setState({items: [item, ...this.state.items]}, ()=>{
             fetch('http://localhost:5000/accounts', {
                 method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(item)
             })
         })
